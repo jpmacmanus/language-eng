@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1554315444 "notes.tex" "notes.pdf" "notes" 1554315449
+["pdflatex"] 1554317080 "notes.tex" "notes.pdf" "notes" 1554317085
   "c:/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc" 1522102327 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2017/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1522102008 2971 def0b6c1f0b107b3b936def894055589 ""
   "c:/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1522102620 3332 103109f5612ad95229751940c61aada0 ""
@@ -206,11 +206,11 @@
   "images/2-4.png" 1554231289 52152 17ec122161ce771529427dc79ea7f1da ""
   "images/5-2.png" 1548761359 49414 855337298ebd240585b99fc244e435c6 ""
   "images/9-3.png" 1548761706 144662 7bd94794a3d66d8697e80407c80f9513 ""
-  "notes.aux" 1554315449 1846 783687d42f259069c6f1c9c227b3a437 ""
-  "notes.tex" 1554315441 56348 1e3d25af798c1ecb11c3695f39a336dd ""
-  "notes.toc" 1554315449 1442 3204ea7b1cbfd3bcad1ce01804f937c9 ""
+  "notes.aux" 1554317085 1859 a27f07d2a61691fc857307111f6eb51b ""
+  "notes.tex" 1554317075 55887 f48974889009e26cd5f64196fcb43dfe ""
+  "notes.toc" 1554317085 1455 e6ee488b2fdcd53c8ecfda7d8fba553c ""
   (generated)
-  "notes.toc"
   "notes.pdf"
-  "notes.aux"
   "notes.log"
+  "notes.aux"
+  "notes.toc"
