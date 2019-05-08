@@ -359,7 +359,7 @@
       data List a = Empty
                   | Cons a (List a)  \end{lstlisting}
 
-  We remove recursion from this data type, and mark it was a parameter \lstinline{k},
+  We remove recursion from this data type, and mark it with a parameter \lstinline{k},
   for \textit{k}ontinuation.
 
   \begin{lstlisting}
@@ -389,7 +389,7 @@
       toList :: Fix (_List_ a) -> List a
       fromList :: List a -> Fix (_List_ a)  \end{lstlisting}
 
-  We say that \lstinline{List a} and \lstinline{_List_ a} are isomorphic when composing the above functions
+  We say that \lstinline{List a} and \lstinline{Fix (_List_ a)} are isomorphic when composing the above functions
   in any order yields the identity. Let's define these functions.
 
   \begin{lstlisting}
@@ -416,7 +416,7 @@
 
   \begin{lstlisting}
       fromList :: List a -> Fix (_List_ a)
-      fromList Empty = In EmmptyF
+      fromList Empty = In _Empty_
       fromList (Cons x xs) = In (_Cons_ x (fromList xs))  \end{lstlisting}
 
   We are now ready to generise fold to be a catamorphism. Consider functions of the form
@@ -449,7 +449,7 @@
 
   \begin{lstlisting}
       cata :: Functor f => (f b -> b) -> Fix f -> b
-      cata alg x (alg . fmap (cata alg) . inop) x  \end{lstlisting}
+      cata alg x = (alg . fmap (cata alg) . inop) x  \end{lstlisting}
 
   An alternative and equivalent definition is:
 
@@ -471,7 +471,7 @@
 
   \begin{lstlisting}
       toList' :: Fix (_List_ a) -> [a]
-      toList' cata alg
+      toList' = cata alg
           where
               alg :: _List_ a [a] -> [a]
               alg _Empty_ = []
@@ -490,7 +490,7 @@
   Here is an example of evaluation.
 
   \begin{lstlisting}
-      length (In(_Cons_ 7 (In (_Cons_ 9 (In _Empty_)))))
+      length (In (_Cons_ 7 (In (_Cons_ 9 (In _Empty_)))))
     = {length}
       cata alg (In (_Cons_ 7 (In (_Cons_ 9 (In _Empty_)))))
     = {cata}
@@ -564,7 +564,7 @@
       double = cata alg  where
           alg :: _Peano_ (Fix _Peano_) -> Fix _Peano_
           alg z = In z
-          alg (S x) = In( S (InS ( x )))  \end{lstlisting}
+          alg (S x) = In (S (In (S x)))  \end{lstlisting}
 
   \subsection{Composing Languages}
 
@@ -585,8 +585,8 @@
   achieved by the coproduct of functors. The coproduct functor is defined as:
 
   \begin{lstlisting}
-      data (f :+: g) a = L(f a)
-                       | R(g a)  \end{lstlisting}
+      data (f :+: g) a = L (f a)
+                       | R (g a)  \end{lstlisting}
 
   This takes two functors and makes the functor \lstinline{(f:+:g)}. It introduces these
   constructors:
