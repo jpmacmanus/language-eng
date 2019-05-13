@@ -788,15 +788,15 @@ the \lstinline{item} parser which knows how to process a single character, and t
 
 \begin{lstlisting}
     fail :: Parser a
-    fail = Parser ( \ ts -> [] )
+    fail = Parser ( \ts -> [] )
 
     item :: Parser Char
-    item :: Parser ( \ ts -> case ts of
+    item :: Parser ( \ts -> case ts of
                       [] -> []
                       (t:ts') -> [(t,ts')])
 
     look :: Parser String
-    look = Parser (\ ts -> [(ts,ts)])
+    look = Parser (\ts -> [(ts,ts)])
 
     -- e.g. parse (fail) "Hello" = []
     --      parse (item) "Hello" = [('H', "ello")]
@@ -857,7 +857,7 @@ These have the following definitions:
 
 \begin{lstlisting}
     instance Application Parser where
-        -- pure :: a Parser a
+        -- pure :: a -> Parser a
         pure x = Parser (\ts -> [(x,ts)])  \end{lstlisting}
 
 The \lstinline{pure x} parser will not consume any input but always generates the value \lstinline{x}.
@@ -881,7 +881,7 @@ Now we define \lstinline{(<*>)}, pronounced "ap", for apply.
 \end{figure}
 
 The operation we defined first parses a function, then a value, and finally applies
-the function to the value. Thos can be done the other way around too:
+the function to the value. This can be done the other way around too:
 
 \begin{lstlisting}
     (<**>) :: Parser a -> Parser (a -> b) -> Parser b
@@ -919,10 +919,10 @@ For parsers, the \lstinline{monoidal} instance is defined as follows:
         unit = Parser ( \ts -> [((), ts)])
 
         -- mult :: Parser a -> Parser b -> Parser (a,b)
-        mult px py = Parser ( \ts ->
-                   [ ((x,y), ts'')
-                   | (x, ts')  <- px ts
-                   , (y, ts'') <- py ts'])  \end{lstlisting}
+        mult (Parser px) (Parser py) =
+            Parser (\ts -> [ ((x,y), ts'')
+                           | (x, ts')  <- px ts
+                           , (y, ts'') <- py ts'])  \end{lstlisting}
 
 \begin{figure}[H]
   \centering
